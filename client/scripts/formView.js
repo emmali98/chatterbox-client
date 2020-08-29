@@ -10,7 +10,14 @@ var FormView = {
     // Stop the browser from submitting the form
     event.preventDefault();
 
-    console.log('click!');
+    let data = $('#message');
+    let text = data[0].value;
+    console.log(data[0].value);
+
+    // Build message object from event data
+    var message = Messages.make(App.username, text);
+    Parse.create(message, (data) => { MessagesView.render(data); }, (e) => { console.log(e); });
+    data[0].value = '';
   },
 
   setStatus: function(active) {
