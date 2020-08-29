@@ -16,7 +16,7 @@ var FormView = {
 
     // Build message object from event data
     var message = Messages.make(App.username, text);
-    Parse.create(message, (data) => { MessagesView.render(data); }, (e) => { console.log(e); });
+    Parse.create(message, () => { App.fetch(); }, (e) => { console.log(e); });
     data[0].value = '';
   },
 
