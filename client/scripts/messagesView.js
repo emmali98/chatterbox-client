@@ -7,6 +7,13 @@ var MessagesView = {
       App.fetch();
       console.log('click!');
     });
+
+    MessagesView.$chats.on('click', (event) => {
+      if (event.target.classList.contains('username')) {
+        var username = event.target.innerText;
+        Friends.toggleStatus(username);
+      }
+    });
   },
 
   render: function(data) {
@@ -16,10 +23,15 @@ var MessagesView = {
     // console.log('inside render function..');
     for (var i = 0; i < data.results.length; i++) {
       if (data.results[i].username && data.results[i].text) {
-        // data.results[i].text = _.escape(data.results[i].text);
-        // data.results[i].username = _.escape(data.results[i].username);
-        // data.results[i].roomname = _.escape(data.results[i].roomname);
-        var message = MessageView.render(data.results[i]);
+        data.results[i].text = _.escape(data.results[i].text);
+        data.results[i].username = _.escape(data.results[i].username);
+        data.results[i].roomname = _.escape(data.results[i].roomname);
+
+        if (Friends.friendsList.includes(data.results[i].username)) {
+          var message = MessageView.renderFriend(data.results[i]);
+        } else {
+          var message = MessageView.render(data.results[i]);
+        }
         MessagesView.$chats.append(message);
       }
     }

@@ -12,10 +12,11 @@ var FormView = {
 
     let data = $('#message');
     let text = data[0].value;
-    console.log(data[0].value);
+    let roomname = _.escape($('select').val());
 
+    console.log('i am the roomname: ', roomname);
     // Build message object from event data
-    var message = Messages.make(App.username, text);
+    var message = Messages.make(App.username, text, roomname);
     Parse.create(message, () => { App.fetch(); }, (e) => { console.log(e); });
     data[0].value = '';
   },

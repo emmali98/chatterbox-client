@@ -10,6 +10,14 @@ var RoomsView = {
         RoomsView.filterRoom(event.target.value, data);
       });
     });
+
+    $('#addRoom').on('click', () => {
+      $('.hidden').removeClass('hidden');
+    });
+
+    $('#go').on('click', () => {
+      Rooms.add();
+    });
   },
 
   render: function(data) {
@@ -22,7 +30,7 @@ var RoomsView = {
         roomNames.add(roomname);
       }
     }
-
+    $('select').html('');
     for (let roomname of roomNames) {
       RoomsView.renderRoom(roomname);
     }
